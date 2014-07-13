@@ -7,7 +7,7 @@
 # All rights reserved - Do Not Redistribute
 #
 
-microservice 'dropwizard-example' do
+deploywizard 'dropwizard-example' do
   name 'dropwizard-example'
   group_id 'io.dropwizard'
   version '0.7.1-SNAPSHOT'

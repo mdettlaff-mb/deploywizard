@@ -1,4 +1,4 @@
-def install_microservice(new_resource) do
+def install_microservice(new_resource)
   directory "/opt/microservices" do
     action :create
     owner node['deploywizard']['user']
@@ -32,6 +32,6 @@ end
 
 action :install do
   converge_by("Install microservice #{new_resource}") do
-    install_microservice('install', new_resource)
+    install_microservice(new_resource)
   end
 end

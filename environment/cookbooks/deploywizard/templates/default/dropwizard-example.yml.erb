@@ -1,0 +1,25 @@
+template: Hello, %s!
+
+defaultName: Stranger
+
+database:
+  driverClass: org.h2.Driver
+  user: sa
+  password: sa
+  url: jdbc:h2:/opt/microservices/dropwizard-example/db/
+
+server:
+  applicationConnectors:
+    - type: http
+      port: 8090
+  adminConnectors:
+    - type: http
+      port: 8091
+
+logging:
+  level: INFO
+  loggers:
+    com.example.app: DEBUG
+    org.hibernate.SQL: ALL
+  appenders:
+    - type: console

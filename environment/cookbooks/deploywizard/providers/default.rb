@@ -12,7 +12,7 @@ def install_microservice(new_resource) do
     group_id new_resource.group_id
     version new_resource.version
     artifact_id 'manager'
-    packaging 'war'
+    packaging 'jar'
     dest "/opt/microservices/#{new_resource.name}/"
     repositories [new_resource.repository]
     owner node['deploywizard']['user']

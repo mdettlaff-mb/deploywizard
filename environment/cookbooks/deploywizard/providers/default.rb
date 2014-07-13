@@ -30,7 +30,7 @@ def install_microservice(new_resource) do
   end
 end
 
-action :microservice do
+action :install do
   converge_by("Install microservice #{new_resource}") do
     install_microservice('install', new_resource)
   end

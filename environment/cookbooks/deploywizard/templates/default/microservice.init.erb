@@ -1,11 +1,11 @@
 #!/bin/sh
 
 SERVICE_NAME=<%= @service_name %>
-SERVICE_VERSION<%= @service_version %>
+SERVICE_VERSION=<%= @service_version %>
 SERVICE_HOME=/opt/microservices/$SERVICE_NAME
 OWNER=<%= @owner %>
 
-START_COMMAND="java $SERVICE_HOME/$SERVICE_NAME-$SERVICE_VERSION.jar server $SERVICE_HOME/$SERVICE_NAME.yml"
+START_COMMAND_ARGS="-jar $SERVICE_HOME/$SERVICE_NAME-$SERVICE_VERSION.jar server $SERVICE_HOME/$SERVICE_NAME.yml"
 
 PIDFILE=/var/run/microservices/$SERVICE_NAME.pid
 
@@ -15,7 +15,7 @@ chown $OWNER `dirname $PIDFILE`
 case "$1" in
   start)
     echo "Starting $SERVICE_NAME..."
-    start-stop-daemon --start --pidfile $PIDFILE --make-pidfile --background --exec -- $START_COMMAND
+    start-stop-daemon --start --pidfile $PIDFILE --make-pidfile --background --exec /usr/bin/java -- $START_COMMAND_ARGS
     echo "$SERVICE_NAME started"
     ;;
   stop)

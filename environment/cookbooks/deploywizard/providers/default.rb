@@ -12,6 +12,10 @@ def install_microservice(new_resource)
     action :create
     owner node['deploywizard']['user']
   end
+  directory "/var/log/microservices" do
+    action :create
+    owner node['deploywizard']['user']
+  end
 
   maven "#{new_resource.name}-artifact" do
     group_id new_resource.group_id

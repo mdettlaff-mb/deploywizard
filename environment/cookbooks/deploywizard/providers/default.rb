@@ -24,14 +24,24 @@ def install_microservice(new_resource)
     action :install
   end
 
-  template "/opt/microservices/#{new_resource.name}/#{new_resource.name}-#{new_resource.version}.jar" do
+  template "/etc/init.d/#{new_resource.name}" do
     source 'microservice.init.erb'
-    owner node['deploywizard']['user']
+    owner "root"
+    group "root"
+    mode 00755
+    action :create
     variables ({
       :service_name => new_resource.name,
       :service_version => new_resource.version,
       :owner => node['deploywizard']['user']
     })
+  end
+
+  service "#{new_resource.name}" do
+    action :enable
+  end
+  service "#{new_resource.name}" do
+    action :start
   end
 end
 

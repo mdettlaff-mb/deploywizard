@@ -21,10 +21,10 @@ def install_microservice(new_resource)
     owner node['deploywizard']['user']
   end
 
-  maven "#{new_resource.name}-artifact" do
+  maven "#{new_resource.artifact_id}-artifact" do
     group_id new_resource.group_id
     version new_resource.version
-    artifact_id new_resource.name
+    artifact_id new_resource.artifact_id
     packaging 'jar'
     dest "/opt/microservices/#{new_resource.name}/"
     repositories [new_resource.repository]
@@ -40,6 +40,7 @@ def install_microservice(new_resource)
     action :create
     variables ({
       :service_name => new_resource.name,
+      :artifact_id => new_resource.artifact_id,
       :service_version => new_resource.version,
       :owner => node['deploywizard']['user']
     })

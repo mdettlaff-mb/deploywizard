@@ -1,11 +1,12 @@
 #!/bin/sh
 
 SERVICE_NAME=<%= @service_name %>
+SERVICE_ARTIFACT_ID=<%= @artifact_id %>
 SERVICE_VERSION=<%= @service_version %>
 SERVICE_HOME=/opt/microservices/$SERVICE_NAME
 OWNER=<%= @owner %>
 
-START_COMMAND_ARGS="-jar $SERVICE_HOME/$SERVICE_NAME-$SERVICE_VERSION.jar server $SERVICE_HOME/$SERVICE_NAME.yml"
+START_COMMAND_ARGS="-jar $SERVICE_HOME/$SERVICE_ARTIFACT_ID-$SERVICE_VERSION.jar server $SERVICE_HOME/$SERVICE_NAME.yml"
 
 PIDFILE=/var/run/microservices/$SERVICE_NAME.pid
 

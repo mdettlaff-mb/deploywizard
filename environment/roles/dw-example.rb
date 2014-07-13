@@ -3,5 +3,5 @@
 name "dw-example"
 description "Deploywizard example"
 run_list(
-  "recipe[deploywizard]"
+  "recipe[maven]","recipe[deploywizard]"
 )

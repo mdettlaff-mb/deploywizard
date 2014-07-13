@@ -12,6 +12,10 @@ def install_microservice(new_resource)
     action :create
     owner node['deploywizard']['user']
   end
+  directory "/opt/microservices/#{new_resource.name}/work" do
+    action :create
+    owner node['deploywizard']['user']
+  end
   directory "/var/log/microservices" do
     action :create
     owner node['deploywizard']['user']

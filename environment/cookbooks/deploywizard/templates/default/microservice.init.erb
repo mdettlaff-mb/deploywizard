@@ -15,8 +15,8 @@ chown $OWNER `dirname $PIDFILE`
 case "$1" in
   start)
     echo "Starting $SERVICE_NAME..."
-    start-stop-daemon --start --pidfile $PIDFILE --make-pidfile --background --chuid $OWNER \
-        --startas /bin/bash -- -c "exec /usr/bin/java $START_COMMAND_ARGS > /var/log/microservices/$SERVICE_NAME.log 2>&1"
+    start-stop-daemon --start --pidfile $PIDFILE --make-pidfile --background --chuid $OWNER --chdir $SERVICE_HOME/work \
+        --startas /bin/bash -- -c "exec /usr/bin/java $START_COMMAND_ARGS >> /var/log/microservices/$SERVICE_NAME.log 2>&1"
     echo "$SERVICE_NAME started"
     ;;
   stop)

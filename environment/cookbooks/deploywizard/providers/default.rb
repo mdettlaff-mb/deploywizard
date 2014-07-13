@@ -8,10 +8,10 @@ def install_microservice(new_resource)
     owner node['deploywizard']['user']
   end
 
-  maven "manager" do
+  maven "#{new_resource.name}-artifact" do
     group_id new_resource.group_id
     version new_resource.version
-    artifact_id 'manager'
+    artifact_id new_resource.name
     packaging 'jar'
     dest "/opt/microservices/#{new_resource.name}/"
     repositories [new_resource.repository]

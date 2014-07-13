@@ -32,6 +32,11 @@ def install_microservice(new_resource)
     action :install
   end
 
+  template "/opt/microservices/#{new_resource.name}/#{new_resource.name}.yml" do
+    source new_resource.configuration_template
+    owner node['deploywizard']['user']
+  end
+
   template "/etc/init.d/#{new_resource.name}" do
     source 'microservice.init.erb'
     owner "root"

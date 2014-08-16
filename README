@@ -1,0 +1,17 @@
+rabbitmqctl status
+rabbitmqctl list_users
+rabbitmqctl list_queues
+service rabbitmq-server restart
+
+rabbitmq-plugins enable rabbitmq_management
+rabbitmq-plugins list
+curl http://localhost:15672/cli/rabbitmqadmin > /tmp/rabbitmqadmin
+sudo mv /tmp/rabbitmqadmin > /usr/local/bin/rabbitmqadmin
+sudo chmod +x /usr/local/bin/rabbitmqadmin
+
+rabbitmqadmin list nodes
+rabbitmqadmin list queues vhost name node messages message_stats.publish_details.rate
+rabbitmqadmin get queue=dw-example count=99
+rabbitmqadmin publish routing_key=dw-example payload="sample message 1"
+
+curl http://localhost:8090/example1?message=mycustommessage

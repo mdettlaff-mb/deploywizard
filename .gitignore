@@ -1,1 +1,6 @@
 /environment/.vagrant/
+target/
+
+.classpath
+.project
+.settings/

@@ -9,17 +9,16 @@
 
 maven_repository = 'http://10.0.2.2:8081/nexus/content/repositories/dwexample-snapshot/'
 
-deploywizard 'dropwizard-example' do
-  group_id 'io.dropwizard'
-  version '0.7.1-SNAPSHOT'
+deploywizard 'dw-example1' do
+  group_id 'mdettlaff.deploywizard'
+  version '1.0.0-SNAPSHOT'
   repository maven_repository
   configuration_template 'services/dropwizard-example.yml.erb'
 end
 
-deploywizard 'dropwizard-example2' do
-  artifact_id 'dropwizard-example'
-  group_id 'io.dropwizard'
-  version '0.7.1-SNAPSHOT'
+deploywizard 'dw-example2' do
+  group_id 'mdettlaff.deploywizard'
+  version '1.0.0-SNAPSHOT'
   repository maven_repository
   configuration_template 'services/dropwizard-example2.yml.erb'
 end

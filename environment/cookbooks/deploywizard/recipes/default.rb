@@ -14,6 +14,7 @@ deploywizard 'dw-example1' do
   version '1.0.0-SNAPSHOT'
   repository maven_repository
   configuration_template 'services/dropwizard-example.yml.erb'
+  priority 90
 end
 
 deploywizard 'dw-example2' do
@@ -21,4 +22,5 @@ deploywizard 'dw-example2' do
   version '1.0.0-SNAPSHOT'
   repository maven_repository
   configuration_template 'services/dropwizard-example2.yml.erb'
+  priority 91
 end

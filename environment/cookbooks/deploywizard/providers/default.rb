@@ -53,9 +53,11 @@ def install_microservice(new_resource)
 
   service "#{new_resource.name}" do
     action :enable
+    priority new_resource.priority
   end
   service "#{new_resource.name}" do
     action :start
+    priority new_resource.priority
   end
 end
 

@@ -29,11 +29,11 @@ public class HelloWorldResource {
 	}
 
 	@GET
-	public String sendMessage(@QueryParam("name") Optional<String> content) throws IOException {
-		LOGGER.info("received a request with message content: {}", content);
-		if (content.isPresent()) {
-			amqp.send(QUEUE_NAME, content.get());
-			LOGGER.info("sent message with content: {}", content);
+	public String sendMessage(@QueryParam("message") Optional<String> message) throws IOException {
+		LOGGER.info("received a request with message content: {}", message);
+		if (message.isPresent()) {
+			amqp.send(QUEUE_NAME, message.get());
+			LOGGER.info("sent message with content: {}", message);
 		}
 		return "OK";
 	}

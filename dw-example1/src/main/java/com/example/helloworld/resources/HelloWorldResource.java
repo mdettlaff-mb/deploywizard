@@ -11,7 +11,7 @@ import javax.ws.rs.core.MediaType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.example.helloworld.AmqpTemplate;
+import com.example.helloworld.AmqpWrapper;
 import com.google.common.base.Optional;
 
 @Path("/example1")
@@ -22,9 +22,9 @@ public class HelloWorldResource {
 
 	private static final String QUEUE_NAME = "dw-example";
 
-	private final AmqpTemplate amqp;
+	private final AmqpWrapper amqp;
 
-	public HelloWorldResource(AmqpTemplate amqp) {
+	public HelloWorldResource(AmqpWrapper amqp) {
 		this.amqp = amqp;
 	}
 
@@ -32,7 +32,7 @@ public class HelloWorldResource {
 	public String sendMessage(@QueryParam("message") Optional<String> message) throws IOException {
 		LOGGER.info("received a request with message content: {}", message);
 		if (message.isPresent()) {
-			amqp.send(QUEUE_NAME, message.get());
+			amqp.getChannel().basicPublish("", QUEUE_NAME, null, message.get().getBytes());
 			LOGGER.info("sent message with content: {}", message);
 		}
 		return "OK";

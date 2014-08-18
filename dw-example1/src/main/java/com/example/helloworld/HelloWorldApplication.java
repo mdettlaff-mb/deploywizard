@@ -2,18 +2,21 @@ package com.example.helloworld;
 
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
+import io.dropwizard.lifecycle.Managed;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 
 import java.io.IOException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.example.helloworld.health.Example1HealthCheck;
 import com.example.helloworld.resources.HelloWorldResource;
-import com.rabbitmq.client.Channel;
-import com.rabbitmq.client.Connection;
-import com.rabbitmq.client.ConnectionFactory;
 
 public class HelloWorldApplication extends Application<HelloWorldConfiguration> {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(HelloWorldApplication.class);
 
 	private static final String QUEUE_NAME = "dw-example";
 
@@ -36,13 +39,26 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
 			IOException {
 		environment.healthChecks().register("example1", new Example1HealthCheck());
 
-		ConnectionFactory factory = new ConnectionFactory();
-		factory.setHost("localhost");
-		Connection connection = factory.newConnection();
-		Channel channel = connection.createChannel();
-		channel.queueDeclare(QUEUE_NAME, false, false, false, null);
-		channel.close();
-		connection.close();
-		environment.jersey().register(new HelloWorldResource(new AmqpTemplate(factory)));
+		final AmqpWrapper amqp = new AmqpWrapper();
+		environment.lifecycle().manage(new Managed() {
+
+			@Override
+			public void start() throws Exception {
+				LOGGER.info("starting example1");
+				amqp.connect();
+				LOGGER.info("connected to AMQP server");
+				amqp.getChannel().queueDeclare(QUEUE_NAME, false, false, false, null);
+				LOGGER.info("declared queue {}", QUEUE_NAME);
+			}
+
+			@Override
+			public void stop() throws Exception {
+				LOGGER.info("stopping example1");
+				amqp.close();
+				LOGGER.info("disconnected from AMQP server");
+			}
+		});
+
+		environment.jersey().register(new HelloWorldResource(amqp));
 	}
 }

@@ -3,39 +3,25 @@ package com.example.helloworld;
 import java.io.IOException;
 
 import com.rabbitmq.client.Connection;
-import com.rabbitmq.client.ConnectionFactory;
 
 public class AmqpClient {
 
-	private final ConnectionFactory connectionFactory;
-	private Connection connection;
+	private final AmqpConnectionPool connectionPool;
 
 	public AmqpClient() {
-		connectionFactory = new ConnectionFactory();
-		connectionFactory.setHost("localhost");
-	}
-
-	public void connect() {
-		try {
-			connection = connectionFactory.newConnection();
-		} catch (IOException e) {
-			throw new IllegalStateException("Cannot connect", e);
-		}
-	}
-
-	public void close() {
-		try {
-			connection.close();
-		} catch (IOException e) {
-			throw new IllegalStateException("Cannot close connection", e);
-		}
+		connectionPool = new AmqpConnectionPool();
 	}
 
 	public CloseableChannel createChannel() {
 		try {
+			Connection connection = connectionPool.getConnection();
 			return new CloseableChannel(connection.createChannel());
 		} catch (IOException e) {
 			throw new IllegalStateException("Cannot create channel", e);
 		}
+	}
+
+	public void close() {
+		connectionPool.close();
 	}
 }

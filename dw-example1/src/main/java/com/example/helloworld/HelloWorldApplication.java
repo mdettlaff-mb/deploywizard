@@ -45,8 +45,6 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
 			@Override
 			public void start() throws Exception {
 				LOGGER.info("starting example1");
-				amqp.connect();
-				LOGGER.info("connected to AMQP server");
 				try (CloseableChannel channel = amqp.createChannel()) {
 					channel.queueDeclare(QUEUE_NAME, false, false, false, null);
 				}

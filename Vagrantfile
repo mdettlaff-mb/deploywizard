@@ -66,9 +66,9 @@ Vagrant.configure("2") do |config|
   # some recipes and/or roles.
   #
   config.vm.provision :chef_solo do |chef|
-    chef.cookbooks_path = "cookbooks"
-    chef.roles_path = "roles"
-    chef.data_bags_path = "data_bags"
+    chef.cookbooks_path = "environment/cookbooks"
+    chef.roles_path = "environment/roles"
+    chef.data_bags_path = "environment/data_bags"
     chef.add_role "base-ubuntu"
     chef.add_role "java"
     chef.add_role "dw-example"

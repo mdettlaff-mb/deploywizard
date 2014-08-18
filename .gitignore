@@ -1,4 +1,4 @@
-/environment/.vagrant/
+/.vagrant/
 target/
 
 .classpath

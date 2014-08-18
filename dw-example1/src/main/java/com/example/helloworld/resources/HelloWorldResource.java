@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.example.helloworld.AmqpClient;
+import com.example.helloworld.CloseableChannel;
 import com.google.common.base.Optional;
 
 @Path("/example1")
@@ -32,7 +33,9 @@ public class HelloWorldResource {
 	public String sendMessage(@QueryParam("message") Optional<String> message) throws IOException {
 		LOGGER.info("received a request with message content: {}", message);
 		if (message.isPresent()) {
-			amqp.getChannel().basicPublish("", QUEUE_NAME, null, message.get().getBytes());
+			try (CloseableChannel channel = amqp.createChannel()) {
+				channel.basicPublish("", QUEUE_NAME, null, message.get().getBytes());
+			}
 			LOGGER.info("sent message with content: {}", message);
 		}
 		return "OK";

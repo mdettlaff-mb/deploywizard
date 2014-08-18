@@ -47,7 +47,9 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
 				LOGGER.info("starting example1");
 				amqp.connect();
 				LOGGER.info("connected to AMQP server");
-				amqp.getChannel().queueDeclare(QUEUE_NAME, false, false, false, null);
+				try (CloseableChannel channel = amqp.createChannel()) {
+					channel.queueDeclare(QUEUE_NAME, false, false, false, null);
+				}
 				LOGGER.info("declared queue {}", QUEUE_NAME);
 			}
 

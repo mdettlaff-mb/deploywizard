@@ -6,7 +6,7 @@ service rabbitmq-server restart
 rabbitmq-plugins enable rabbitmq_management
 rabbitmq-plugins list
 curl http://localhost:15672/cli/rabbitmqadmin > /tmp/rabbitmqadmin
-sudo mv /tmp/rabbitmqadmin > /usr/local/bin/rabbitmqadmin
+sudo mv /tmp/rabbitmqadmin /usr/local/bin/rabbitmqadmin
 sudo chmod +x /usr/local/bin/rabbitmqadmin
 
 rabbitmqadmin list nodes

@@ -11,7 +11,7 @@ import javax.ws.rs.core.MediaType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.example.helloworld.AmqpWrapper;
+import com.example.helloworld.AmqpClient;
 import com.google.common.base.Optional;
 
 @Path("/example1")
@@ -22,9 +22,9 @@ public class HelloWorldResource {
 
 	private static final String QUEUE_NAME = "dw-example";
 
-	private final AmqpWrapper amqp;
+	private final AmqpClient amqp;
 
-	public HelloWorldResource(AmqpWrapper amqp) {
+	public HelloWorldResource(AmqpClient amqp) {
 		this.amqp = amqp;
 	}
 

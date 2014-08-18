@@ -39,7 +39,7 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
 			IOException {
 		environment.healthChecks().register("example1", new Example1HealthCheck());
 
-		final AmqpWrapper amqp = new AmqpWrapper();
+		final AmqpClient amqp = new AmqpClient();
 		environment.lifecycle().manage(new Managed() {
 
 			@Override

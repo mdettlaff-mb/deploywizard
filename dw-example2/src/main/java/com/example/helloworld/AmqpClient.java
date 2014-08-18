@@ -6,13 +6,13 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 
-public class AmqpWrapper {
+public class AmqpClient {
 
 	private final ConnectionFactory connectionFactory;
 	private Connection connection;
 	private Channel channel;
 
-	public AmqpWrapper() {
+	public AmqpClient() {
 		connectionFactory = new ConnectionFactory();
 		connectionFactory.setHost("localhost");
 	}

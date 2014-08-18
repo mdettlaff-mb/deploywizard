@@ -43,7 +43,7 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
 			IOException, ShutdownSignalException, ConsumerCancelledException, InterruptedException {
 		environment.healthChecks().register("example2", new Example2HealthCheck());
 
-		final AmqpWrapper amqp = new AmqpWrapper();
+		final AmqpClient amqp = new AmqpClient();
 		environment.lifecycle().manage(new Managed() {
 
 			@Override
